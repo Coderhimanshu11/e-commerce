@@ -20,8 +20,9 @@ public class Seller {
     int id;
     String name;
 
-    @Column(unique = true,nullable = false)
-    String email;
+
+    @Column(name = "email_id")
+    private String emailId;
 
     Integer age;
     String mob_No;

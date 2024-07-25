@@ -1,10 +1,9 @@
 package com.example.E_commerce.model;
 
+import com.example.E_commerce.Enum.Category;
+import com.example.E_commerce.Enum.ProductStatus;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Entity
@@ -13,7 +12,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @Table(name = "product")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +20,15 @@ public class Product {
     String name;
      int quantity;
      int price;
-     int category;
+
+     @Enumerated(EnumType.STRING)
+     Category category;
+
+     @Enumerated(EnumType.STRING)
+     ProductStatus productStatus;
 
      @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "seller_id")
     Seller seller;
 
      @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)

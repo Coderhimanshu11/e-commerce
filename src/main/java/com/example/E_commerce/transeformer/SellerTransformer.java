@@ -11,7 +11,7 @@ public class SellerTransformer {
         return Seller.builder()
                 .name(sellerRequestDto.getName())
                 .age(sellerRequestDto.getAge())
-                .email(sellerRequestDto.getEmail())
+                .emailId(sellerRequestDto.getEmailId())
                 .mob_No(sellerRequestDto.getMob_No())
         .build();
     }

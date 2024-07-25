@@ -1,6 +1,6 @@
 package com.example.E_commerce.dto.responseDto;
 
-import jakarta.persistence.Column;
+import com.example.E_commerce.Enum.ProductStatus;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -9,9 +9,10 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class SellerResponseDto {
-    String name;
+public class ProductResponseDto {
+    String productName;
+    String sellerName;
+    int quantity;
 
-
-        Integer age;
+    ProductStatus productStatus;
 }

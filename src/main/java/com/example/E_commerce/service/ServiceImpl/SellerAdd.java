@@ -1,6 +1,6 @@
 package com.example.E_commerce.service.ServiceImpl;
 
-import com.example.E_commerce.Exception.EmailIDAlreadyPresentException;
+import com.example.E_commerce.Exception.EmailAlreadyPresentException;
 import com.example.E_commerce.dto.requestDto.SellerRequestDto;
 import com.example.E_commerce.dto.responseDto.SellerResponseDto;
 import com.example.E_commerce.model.Seller;
@@ -16,9 +16,10 @@ public class SellerAdd implements SellerService {
     SellerRepository sellerRepository;
 
     @Override
-    public SellerResponseDto sellerAdd(SellerRequestDto sellerRequestDto) throws EmailIDAlreadyPresentException {
-        if (sellerRepository.findByEmailId(sellerRequestDto.getEmail())!=null)
-            throw new EmailIDAlreadyPresentException("Email already registered");
+    public SellerResponseDto sellerAdd(SellerRequestDto sellerRequestDto) throws EmailAlreadyPresentException {
+        if (sellerRepository.findByEmailId(sellerRequestDto.getEmailId())!=null)
+            throw new EmailAlreadyPresentException("Email already registered");
+
      Seller seller= SellerTransformer.sellerRequestDtoToSeller(sellerRequestDto);
    Seller savedSeller= sellerRepository.save(seller);
 

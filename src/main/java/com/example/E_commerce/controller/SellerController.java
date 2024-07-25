@@ -23,7 +23,7 @@ public class SellerController {
             SellerResponseDto sellerResponseDto = sellerService.sellerAdd(sellerRequestDto);
             return new ResponseEntity(sellerResponseDto, HttpStatus.CREATED);
         }catch(Exception e){
-            return new ResponseEntity(e,HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(e.getMessage(),HttpStatus.BAD_REQUEST);
         }
     }
 

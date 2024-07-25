@@ -1,5 +1,6 @@
 package com.example.E_commerce.dto.requestDto;
 
+import com.example.E_commerce.Enum.Category;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -8,13 +9,14 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class SellerRequestDto {
-    String name;
+public class ProductRequestDto {
+    int sellerId;
 
+    String productName;
+    int quantity;
+    int price;
 
-    String emailId;
+    Category category;
 
-    Integer age;
-    String mob_No;
 
 }

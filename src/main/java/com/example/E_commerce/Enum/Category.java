@@ -1,6 +1,6 @@
 package com.example.E_commerce.Enum;
 
-public enum Catageory {
+public enum Category {
     SPORTS,
     FASHION,
     ELECTRONICS,
