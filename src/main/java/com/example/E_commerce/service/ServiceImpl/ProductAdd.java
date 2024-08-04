@@ -2,6 +2,7 @@ package com.example.E_commerce.service.ServiceImpl;
 
 import com.example.E_commerce.Enum.Category;
 import com.example.E_commerce.Exception.InvalidSellerException;
+import com.example.E_commerce.Exception.ProductNotFoundException;
 import com.example.E_commerce.dto.requestDto.ProductRequestDto;
 import com.example.E_commerce.dto.responseDto.ProductResponseDto;
 import com.example.E_commerce.model.Product;
@@ -10,6 +11,8 @@ import com.example.E_commerce.repository.ProductRepository;
 import com.example.E_commerce.repository.SellerRepository;
 import com.example.E_commerce.service.ProductService;
 import com.example.E_commerce.transeformer.ProductTransformer;
+import com.example.E_commerce.transeformer.SellerTransformer;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -49,5 +52,45 @@ public class ProductAdd implements ProductService {
       }
       return productResponseDtos;
     }
+
+    @Override
+    public List<ProductResponseDto> getBySellerEmailId(String emailId) throws InvalidSellerException {
+       Seller seller=sellerRepository.findByEmailId(emailId);
+       if (!seller.getEmailId().equals(emailId)){
+           throw new InvalidSellerException("Seller is invalid");
+       }
+       List<ProductResponseDto> productResponseDtos=new ArrayList<>();
+       for (Product products: seller.getProductList()){
+           productResponseDtos.add(ProductTransformer.ProductToProductResponseDto(products));
+
+       }
+       return productResponseDtos;
+
+    }
+
+    @Override
+    public List<ProductResponseDto> getProductByPriceAndCategory(Integer price, String category) {
+List<Product> products=productRepository.getProductByPriceAndCategory(price,category);
+List<ProductResponseDto> productResponseDtos=new ArrayList<>();
+for (Product product:products){
+    productResponseDtos.add(ProductTransformer.ProductToProductResponseDto(product));
+}
+return productResponseDtos;
+    }
+
+//    @Override
+//    @Transactional
+//    public ProductResponseDto deleteBySellerAndProductId(int sellerId, int productId) throws ProductNotFoundException {
+//        Product product = productRepository.findBySellerAndProductId(sellerId, productId).get();
+//          if (product.getId()!=sellerId && product.getId()!=productId){
+//      throw new ProductNotFoundException("Seller with id"+sellerId+"product with id"+productId+"Not found");
+//  }
+//          ProductResponseDto productResponseDto=ProductTransformer.ProductToProductResponseDto(product);
+//for (Product product1:product){
+//    productRepository.deleteProduct(product1);
+//
+//}
+//return productResponseDto;
+//    }
 
 }

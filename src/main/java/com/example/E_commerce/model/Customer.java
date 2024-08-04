@@ -1,10 +1,7 @@
 package com.example.E_commerce.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
@@ -16,6 +13,7 @@ import java.util.List;
 @Data
 @Table(name = "customer")
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder
 
 public class Customer {
     @Id
@@ -25,8 +23,12 @@ public class Customer {
 
     @Column(unique = true)
     String email;
-    Integer age;
-    String mob_No;
+    int age;
+
+    @Column(name = "mob_No",unique = true)
+    String mobNo;
+
+    String address;
 
     @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     List<Card> cardList=new ArrayList<>();

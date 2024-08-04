@@ -8,11 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class SellerResponseDto {
+public class CustomerResponseDto {
     String name;
-
-
-        Integer age;
-         String emailId;
-         String mob_No;
+    String message;
 }
