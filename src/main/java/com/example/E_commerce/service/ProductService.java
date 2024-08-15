@@ -2,9 +2,12 @@ package com.example.E_commerce.service;
 
 import com.example.E_commerce.Enum.Category;
 import com.example.E_commerce.Exception.InvalidSellerException;
+import com.example.E_commerce.Exception.NoSufficientProductException;
 import com.example.E_commerce.Exception.ProductNotFoundException;
 import com.example.E_commerce.dto.requestDto.ProductRequestDto;
 import com.example.E_commerce.dto.responseDto.ProductResponseDto;
+import com.example.E_commerce.model.Item;
+import com.example.E_commerce.model.Ordered;
 
 import java.util.List;
 
@@ -14,4 +17,6 @@ public interface ProductService {
     public List<ProductResponseDto> getBySellerEmailId(String emailId) throws InvalidSellerException;
    // public ProductResponseDto deleteBySellerAndProductId(int sellerId,int productId) throws ProductNotFoundException;
     public List<ProductResponseDto> getProductByPriceAndCategory(Integer price,String category);
+
+   public void decreaseProductQuantity(Item item) throws NoSufficientProductException;
 }

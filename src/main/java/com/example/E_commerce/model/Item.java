@@ -1,10 +1,7 @@
 package com.example.E_commerce.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.antlr.v4.runtime.atn.SemanticContext;
 
@@ -14,16 +11,15 @@ import org.antlr.v4.runtime.atn.SemanticContext;
 @Data
 @Table(name = "item")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-
+@Builder
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-    String name;
     int requiredQuantity;
-     int cost;
+     int price;
 
-     @OneToOne
+     @ManyToOne
     @JoinColumn
     Product product;
 

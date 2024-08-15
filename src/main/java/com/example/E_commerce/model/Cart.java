@@ -19,8 +19,8 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
-    int totalCost;
+int totalCost;
+    int cartTotal;
     int numberOfItem;
 
     @OneToOne

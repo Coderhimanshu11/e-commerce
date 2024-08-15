@@ -1,10 +1,14 @@
 package com.example.E_commerce.service.ServiceImpl;
 
 import com.example.E_commerce.Enum.Category;
+import com.example.E_commerce.Enum.ProductStatus;
 import com.example.E_commerce.Exception.InvalidSellerException;
+import com.example.E_commerce.Exception.NoSufficientProductException;
 import com.example.E_commerce.Exception.ProductNotFoundException;
 import com.example.E_commerce.dto.requestDto.ProductRequestDto;
 import com.example.E_commerce.dto.responseDto.ProductResponseDto;
+import com.example.E_commerce.model.Item;
+import com.example.E_commerce.model.Ordered;
 import com.example.E_commerce.model.Product;
 import com.example.E_commerce.model.Seller;
 import com.example.E_commerce.repository.ProductRepository;
@@ -78,19 +82,19 @@ for (Product product:products){
 return productResponseDtos;
     }
 
-//    @Override
-//    @Transactional
-//    public ProductResponseDto deleteBySellerAndProductId(int sellerId, int productId) throws ProductNotFoundException {
-//        Product product = productRepository.findBySellerAndProductId(sellerId, productId).get();
-//          if (product.getId()!=sellerId && product.getId()!=productId){
-//      throw new ProductNotFoundException("Seller with id"+sellerId+"product with id"+productId+"Not found");
-//  }
-//          ProductResponseDto productResponseDto=ProductTransformer.ProductToProductResponseDto(product);
-//for (Product product1:product){
-//    productRepository.deleteProduct(product1);
-//
-//}
-//return productResponseDto;
-//    }
+    @Override
+    public void decreaseProductQuantity(Item item) throws NoSufficientProductException {
+            Product product=item.getProduct();
+            int Quantity=item.getRequiredQuantity();
+            int currentQuantity=product.getQuantity();
+            if (Quantity>currentQuantity){
+                throw new NoSufficientProductException("out of Stock");
+            }
+            product.setQuantity(currentQuantity-Quantity);
+            if (product.getQuantity()==0){
+                product.setProductStatus(ProductStatus.OUT_OF_STOCK);
+            }
+
+        }
 
 }
