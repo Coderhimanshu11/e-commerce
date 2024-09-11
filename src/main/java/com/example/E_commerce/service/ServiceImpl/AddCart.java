@@ -96,8 +96,9 @@ public class AddCart implements CartService {
             customer.getOrderedList().add(order);
 
             savedOrder = orderedRepository.save(order);
-            resetCart(cart);
-          //  customerRepository.save(customer);
+            cart.setCartTotal(0);
+            cart.setNumberOfItem(0);
+            cart.setItemList(new ArrayList<>());
             OrderedResponseDto orderedResponseDto = OrderTransFormer.orderToOrderResponseDto(order);
 
             List<ItemResponseDto> itemResponseDtoList = new ArrayList<>();
@@ -120,10 +121,10 @@ public class AddCart implements CartService {
 
 
     }
-    public void resetCart(Cart cart){
-        cart.setCartTotal(0);
-        cart.setNumberOfItem(0);
-        cart.setItemList(new ArrayList<>());
-
-    }
+//    public void resetCart(Cart cart){
+//        cart.setCartTotal(0);
+//        cart.setNumberOfItem(0);
+//        cart.setItemList(new ArrayList<>());
+//
+//    }
 }
